@@ -149,7 +149,7 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
             }
         }
 
-        return config('asgard.media.config.files-path') . Str::slug(Arr::get($data, 'name'));
+        return config('encore.media.config.files-path') . Str::slug(Arr::get($data, 'name'));
     }
 
     /**
