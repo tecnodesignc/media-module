@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 // Base Api
-use Modules\Ihelpers\Http\Controllers\Api\BaseApiController;
+use Modules\Core\Http\Controllers\Api\BaseApiController;
 
 // Transformers
 use Modules\Media\Transformers\NewTransformers\MediaTransformer;
@@ -26,8 +26,8 @@ class FolderApiController extends BaseApiController
   private $breadcrumb = [
     //0 => 'Home',
   ];
-  
-  
+
+
   public function __construct(FolderRepository $folder)
   {
     
