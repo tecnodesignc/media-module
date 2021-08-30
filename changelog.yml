@@ -1,4 +1,15 @@
 url: https://github.com/EncoreCms/Platform
 versions:
    "1.0.0":
+     added:
        - Intial Version Module
+   "1.0.1":
+     added:
+       - Assign Permission for media.batchs
+     changed:
+       - Filesystem change for publicmedia
+       - Api routes, Api Controller
+       - Eloquent File repository
+       - MediaTransformer
+     remove:
+       - Midleware autcan of file Api routes

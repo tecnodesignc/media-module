@@ -19,6 +19,7 @@ return [
         'destroy' => 'media::folders.destroy resource',
     ],
     'media.batchs' => [
+        'assign'=> 'media::media.assign resource',
         'move' => 'media::media.move resource',
         'destroy' => 'media::media.destroy resource',
     ],

@@ -101,7 +101,7 @@ $router->group(['middleware' => 'api.token'], function (Router $router) {
 /**
  * IMAGINA API V1 ROUTES
  */
-$router->group(['prefix' => '/imedia/v1'], function (Router $router) {
+$router->group(['prefix' => '/media/v1'], function (Router $router) {
 
 //======  FILES
   require('ApiRoutes/fileRoutes.php');
@@ -111,6 +111,6 @@ $router->group(['prefix' => '/imedia/v1'], function (Router $router) {
 
 //======  BATCHS
   require('ApiRoutes/batchRoutes.php');
-  
-  
+
+
 });

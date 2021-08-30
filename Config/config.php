@@ -9,7 +9,7 @@ return [
     | in app/config/filesystems.php
     | Supported: "local", "s3"
     */
-    'filesystem' => 'local',
+    'filesystem' => 'publicmedia',
     /*
     |--------------------------------------------------------------------------
     | The path where the media files will be uploaded

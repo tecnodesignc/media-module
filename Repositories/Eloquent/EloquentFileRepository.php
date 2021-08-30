@@ -5,6 +5,7 @@ namespace Modules\Media\Repositories\Eloquent;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 use Modules\Media\Entities\File;
 use Modules\Media\Events\FileIsCreating;
@@ -219,7 +220,7 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
     {
         /*== initialize query ==*/
         $query = $this->model->query();
-
+        $query->orderBy('is_folder', 'desc');
         /*== RELATIONSHIPS ==*/
         if (in_array('*', $params->include)) {//If Request all relationships
             $query->with(["createdBy"]);
@@ -250,27 +251,13 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
                 $orderWay = $filter->order->way ?? 'desc';//Default way
                 $query->orderBy($orderByField, $orderWay);//Add order to query
             } else {
-                $query->orderBy('is_Folder', 'desc');//Add order to query
                 $query->orderBy('media__files.created_at', 'desc');//Add order to query
             }
 
             //folder id
-            if (isset($filter->folderId) && (string)$filter->folderId != "") {
-                $query->where('folder_id', $filter->folderId);
+            if (isset($filter->folder) && (string)$filter->folder != "") {
+                $query->where('folder_id', $filter->folder);
 
-            }
-
-            if (!isset($params->permissions['media.medias.index']) ||
-                (isset($params->permissions['media.medias.index']) &&
-                    !$params->permissions['media.medias.index'])) {
-                $query->where("is_folder", "!=", 0);
-            }
-
-
-            if (!isset($params->permissions['media.folders.index']) ||
-                (isset($params->permissions['media.folders.index']) &&
-                    !$params->permissions['media.folders.index'])) {
-                $query->where("is_folder", "!=", 1);
             }
 
             //folder name
@@ -286,10 +273,6 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
                 }
             }
 
-            //is Folder
-            if (isset($filter->isFolder)) {
-                $query->where('is_folder', $filter->isFolder);
-            }
 
             //is Folder
             if (isset($filter->zone)) {
@@ -311,14 +294,15 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
                         ->orWhere('created_at', 'like', '%' . $filter->search . '%');
                 });
             }
+
         }
 
         $this->validateIndexAllPermission($query, $params);
+
         /*== FIELDS ==*/
         if (isset($params->fields) && count($params->fields))
             $query->select($params->fields);
 
-        //dd($query->toSql(), $query->getBindings());
         /*== REQUEST ==*/
         if (isset($params->page) && $params->page) {
             return $query->paginate($params->take);
@@ -343,30 +327,27 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
                 $includeDefault = array_merge($includeDefault, $params->include);
             $query->with($includeDefault);//Add Relationships to query
         }
-
+        /*== FIELDS ==*/
+        if (isset($params->fields) && count($params->fields))
+            $query->select($params->fields);
         /*== FILTER ==*/
         if (isset($params->filter)) {
-            $filter = $params->filter;
 
+            $filter = $params->filter;
             if (isset($filter->field))//Filter by specific field
                 $field = $filter->field;
 
 
             //is Folder
-            if (isset($filter->zone)) {
-                $filesIds = \DB::table("media__imageables as imageable")
-                    ->where('imageable.zone', $filter->zone)
-                    ->where('imageable.imageable_id', $filter->entityId)
-                    ->where('imageable.imageable_type', $filter->entity)
-                    ->get()->pluck("file_id")->toArray();
-                $query->whereIn("id", $filesIds);
+            if (isset($params->filter->field)&&$params->filter->field=='entity_id') {
+                $imageable = DB::table('media__imageables')
+                    ->where('imageable_id', $criteria)
+                    ->whereZone($filter->zone)
+                    ->whereImageableType($filter->entity)->first();
+                if(!$imageable) return null;
+                return  $query->where('id', $imageable->file_id)->first();
             }
         }
-
-        /*== FIELDS ==*/
-        if (isset($params->fields) && count($params->fields))
-            $query->select($params->fields);
-
         /*== REQUEST ==*/
         return $query->where($field ?? 'id', $criteria)->first();
     }
@@ -380,17 +361,9 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
 
     function validateIndexAllPermission(&$query, $params)
     {
-        // filter by permission: index all leads
-
-        if (!isset($params->permissions['media.medias.index-all']) ||
-            (isset($params->permissions['media.medias.index-all']) &&
-                !$params->permissions['media.medias.index-all'])) {
+        if (!isset($params->permissions['media.medias.index-all']) || !$params->permissions['media.medias.index-all']) {
             $user = $params->user;
-            $role = $params->role;
-            // if is salesman or salesman manager or salesman sub manager
             $query->where('created_by', $user->id);
-
-
         }
     }
 }
