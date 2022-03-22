@@ -10,7 +10,7 @@ class ThumbnailsManagerTest extends MediaTestCase
     /**
      * @var ThumbnailManager
      */
-    private $thumbnailManager;
+    private ThumbnailManager $thumbnailManager;
 
     public function setUp(): void
     {

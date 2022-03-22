@@ -2,7 +2,10 @@
 
 namespace Modules\Media\Repositories\Eloquent;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
@@ -18,7 +21,11 @@ use Modules\Media\Support\Collection\NestedFoldersCollection;
 
 class EloquentFolderRepository extends EloquentBaseRepository implements FolderRepository
 {
-    public function all()
+    /**
+     * Return a collection of all elements of the resource
+     * @return Collection
+     */
+    public function all(): Collection
     {
         return $this->model->with('translations')->where('is_folder', 1)->orderBy('created_at', 'DESC')->get();
     }
@@ -28,12 +35,17 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
      * @param int $folderId
      * @return File|null
      */
-    public function findFolder(int $folderId)
+    public function findFolder(int $folderId): ?File
     {
         return $this->model->where('is_folder', 1)->where('id', $folderId)->first();
     }
+    /**
+     * Create a resource
+     * @param  $data
+     * @return Model|Collection|Builder|array|null
+     */
 
-    public function create($data)
+    public function create($data): Model|Collection|Builder|array|null
     {
         $data = [
             'filename' => Arr::get($data, 'name'),
@@ -49,7 +61,13 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
         return $folder;
     }
 
-    public function update($model, $data)
+    /**
+     * Update a resource
+     * @param  $model
+     * @param array $data
+     * @return Model|Collection|Builder|array|null
+     */
+    public function update($model, array $data): Model|Collection|Builder|array|null
     {
         $previousData = [
             'filename' => $model->filename,
@@ -69,7 +87,12 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
         return $model;
     }
 
-    public function destroy($folder)
+    /**
+     * Destroy a resource
+     * @param  $folder
+     * @return bool
+     */
+    public function destroy($folder): bool
     {
         event(new FolderIsDeleting($folder));
 
@@ -80,18 +103,26 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
      * @param File $folder
      * @return Collection
      */
-    public function allChildrenOf(File $folder)
+    public function allChildrenOf(File $folder): Collection
     {
         $path = $folder->path->getRelativeUrl();
 
         return $this->model->where('path', 'like', "{$path}/%")->get();
     }
 
+    /**
+     * @return NestedFoldersCollection
+     */
     public function allNested(): NestedFoldersCollection
     {
         return new NestedFoldersCollection($this->all());
     }
 
+    /**
+     * @param File $folder
+     * @param File $destination
+     * @return File
+     */
     public function move(File $folder, File $destination): File
     {
         $previousData = [
@@ -115,7 +146,7 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
      * @param int $folderId
      * @return File
      */
-    public function findFolderOrRoot($folderId): File
+    public function findFolderOrRoot(int $folderId): File
     {
         $destination = $this->findFolder($folderId);
 
@@ -126,11 +157,20 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
         return $destination;
     }
 
-    private function getNewPathFor(string $filename, File $folder)
+    /**
+     * @param string $filename
+     * @param File $folder
+     * @return string
+     */
+    private function getNewPathFor(string $filename, File $folder):string
     {
         return $this->removeDoubleSlashes($folder->path->getRelativeUrl() . '/' . Str::slug($filename));
     }
 
+    /**
+     * @param string $string
+     * @return string
+     */
     private function removeDoubleSlashes(string $string) : string
     {
         return str_replace('//', '/', $string);
@@ -166,10 +206,11 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
     }
 
     /**
-     * @param bool $params
-     * @return mixed
+     * Get resources by an array of attributes
+     * @param object $params
+     * @return LengthAwarePaginator|Collection
      */
-  public function getItemsBy($params = false)
+  public function getItemsBy($params = false): Collection|LengthAwarePaginator
   {
     /*== initialize query ==*/
     $query = $this->model->query();
@@ -281,7 +322,12 @@ class EloquentFolderRepository extends EloquentBaseRepository implements FolderR
   }
 
 
-  function validateIndexAllPermission(&$query, $params)
+    /**
+     * @param $query
+     * @param $params
+     * @return void
+     */
+    function validateIndexAllPermission(&$query, $params)
   {
     // filter by permission: index all leads
 

@@ -18,7 +18,7 @@ final class EloquentFolderRepositoryTest extends MediaTestCase
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
 
     public function setUp(): void
     {

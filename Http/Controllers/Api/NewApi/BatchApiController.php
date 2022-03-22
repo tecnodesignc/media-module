@@ -3,8 +3,8 @@
 namespace Modules\Media\Http\Controllers\Api\NewApi;
 
 // Requests & Response
+use Illuminate\Http\JsonResponse;
 use Modules\Media\Events\FileWasUploaded;
-use Modules\Media\Http\Requests\LogRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -29,28 +29,24 @@ class BatchApiController extends BaseApiController
   /**
    * @var FileRepository
    */
-  private $file;
+  private FileRepository $file;
   /**
    * @var FolderRepository
    */
-  private $folder;
+  private FolderRepository $folder;
   /**
    * @var Mover
    */
-  private $mover;
+  private Mover $mover;
   /**
    * @var Imagy
    */
-  private $imagy;
+  private Imagy $imagy;
 
 
-  public function __construct(
-    FileRepository $file,
-    FolderRepository $folder,
-    Mover $mover,
-    Imagy $imagy
-  )
+  public function __construct(FileRepository $file, FolderRepository $folder,  Mover $mover, Imagy $imagy)
   {
+    parent::__construct();
     $this->file = $file;
     $this->folder = $folder;
     $this->mover = $mover;
@@ -63,9 +59,9 @@ class BatchApiController extends BaseApiController
    * CREATE A ITEM
    *
    * @param Request $request
-   * @return mixed
+   * @return JsonResponse
    */
-  public function move(Request $request)
+  public function move(Request $request): JsonResponse
   {
     \DB::beginTransaction();
     try {
@@ -103,9 +99,9 @@ class BatchApiController extends BaseApiController
    * CREATE A ITEM
    *
    * @param Request $request
-   * @return mixed
+   * @return JsonResponse
    */
-  public function destroy(Request $request)
+  public function destroy(Request $request): JsonResponse
   {
     \DB::beginTransaction();
     try {
@@ -153,8 +149,8 @@ class BatchApiController extends BaseApiController
     if ($folder === null) {
       return;
     }
-    
+
     $this->folder->destroy($folder);
   }
-  
+
 }

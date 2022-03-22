@@ -8,7 +8,7 @@ use Modules\Media\Validators\AlphaDashWithSpaces;
 
 class CreateFolderRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         $parentId = $this->get('parent_id');
 
@@ -23,12 +23,12 @@ class CreateFolderRequest extends FormRequest
         ];
     }
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [];
     }

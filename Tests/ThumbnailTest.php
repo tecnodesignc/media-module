@@ -74,7 +74,7 @@ class ThumbnailTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('mediumThumb', $thumbnails[1]->name());
     }
 
-    private function getBlogThumbnailConfig()
+    private function getBlogThumbnailConfig(): array
     {
         return [
             'blogThumb' => [
@@ -90,7 +90,7 @@ class ThumbnailTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    private function getMediaThumbnails()
+    private function getMediaThumbnails(): array
     {
         return [
             'smallThumb' => [

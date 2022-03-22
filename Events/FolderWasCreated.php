@@ -9,11 +9,11 @@ class FolderWasCreated
     /**
      * @var File
      */
-    public $folder;
+    public File $folder;
     /**
      * @var array
      */
-    public $data;
+    public array $data;
 
     public function __construct(File $folder, array $data)
     {

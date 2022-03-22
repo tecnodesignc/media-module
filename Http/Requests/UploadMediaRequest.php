@@ -7,7 +7,7 @@ use Modules\Media\Validators\MaxFolderSizeRule;
 
 class UploadMediaRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         $extensions = 'mimes:' . str_replace('.', '', config('encore.media.config.allowed-types'));
         $maxFileSize = $this->getMaxFileSizeInKilobytes();
@@ -22,7 +22,7 @@ class UploadMediaRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         $size = $this->getMaxFileSize();
 
@@ -31,12 +31,12 @@ class UploadMediaRequest extends FormRequest
         ];
     }
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    private function getMaxFileSizeInKilobytes()
+    private function getMaxFileSizeInKilobytes(): float|int
     {
         return $this->getMaxFileSize() * 1000;
     }

@@ -122,7 +122,7 @@ final class FileMover implements MoverInterface
 
     /**
      * Check if the given path is en image
-     * @param  string $path
+     * @param string $path
      * @return bool
      */
     private function isImage($path)

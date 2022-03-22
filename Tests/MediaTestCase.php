@@ -20,7 +20,7 @@ use Orchestra\Testbench\TestCase;
 
 abstract class MediaTestCase extends TestCase
 {
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             TranslationServiceProvider::class,
@@ -37,7 +37,7 @@ abstract class MediaTestCase extends TestCase
         ];
     }
 
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
             'LaravelLocalization' => LaravelLocalization::class,

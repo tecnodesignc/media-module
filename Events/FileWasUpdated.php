@@ -9,7 +9,7 @@ class FileWasUpdated
     /**
      * @var File
      */
-    public $file;
+    public File $file;
 
     public function __construct(File $file)
     {

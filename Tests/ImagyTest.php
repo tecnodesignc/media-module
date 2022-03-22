@@ -16,19 +16,19 @@ class ImagyTest extends MediaTestCase
     /**
      * @var Imagy
      */
-    protected $imagy;
+    protected Imagy $imagy;
     /**
      * @var Filesystem
      */
-    protected $finder;
+    protected Filesystem $finder;
     /**
      * @var Repository
      */
-    protected $config;
+    protected Repository $config;
     /**
      * @var string
      */
-    protected $mediaPath;
+    protected string $mediaPath;
     private $testbenchPublicPath;
 
     /**

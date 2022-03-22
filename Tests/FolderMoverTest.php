@@ -12,11 +12,11 @@ final class FolderMoverTest extends MediaTestCase
     /**
      * @var FolderMover
      */
-    private $mover;
+    private FolderMover $mover;
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
 
     protected function setUp(): void
     {

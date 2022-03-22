@@ -9,11 +9,11 @@ class FolderStartedMoving
     /**
      * @var File
      */
-    public $folder;
+    public File $folder;
     /**
      * @var array
      */
-    public $previousData;
+    public array $previousData;
 
     public function __construct(File $folder, array $previousData)
     {

@@ -1,8 +1,8 @@
-url: https://github.com/EncoreCms/Platform
+url: https://github.com/tecnodesignc/media-module
 versions:
-   "1.0.0":
-     added:
-       - Intial Version Module
+   "2.0.0":
+      changed:
+        - Laravel 9 compatibility
    "1.0.1":
      added:
        - Assign Permission for media.batchs
@@ -13,3 +13,6 @@ versions:
        - MediaTransformer
      remove:
        - Midleware autcan of file Api routes
+   "1.0.0":
+     added:
+       - Intial Version Module

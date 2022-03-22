@@ -4,6 +4,7 @@ namespace Modules\Media\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Modules\Media\Entities\File;
@@ -25,17 +26,17 @@ class MediaController extends Controller
     /**
      * @var FileService
      */
-    private $fileService;
+    private FileService $fileService;
 
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
 
     public function __construct(FileService $fileService, FileRepository $file, Imagy $imagy)
     {
@@ -98,9 +99,9 @@ class MediaController extends Controller
      * Get a media collection by zone and entity object. Require some params that were passed to request: entity (Full class name of entity), entity_id and zone
      *
      * @param Request $request
-     * @return JsonResponse|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return JsonResponse|AnonymousResourceCollection
      */
-    public function getByZoneEntity(Request $request)
+    public function getByZoneEntity(Request $request): JsonResponse|AnonymousResourceCollection
     {
         $entityName = (string)$request->get('entity');
         $entityModel = new $entityName;

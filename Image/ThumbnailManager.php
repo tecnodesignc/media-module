@@ -10,18 +10,18 @@ interface ThumbnailManager
      * @param array $filters
      * @return void
      */
-    public function registerThumbnail($name, array $filters);
+    public function registerThumbnail(string $name, array $filters);
 
     /**
      * Return all registered thumbnails
      * @return array
      */
-    public function all();
+    public function all(): array;
 
     /**
      * Find the filters for the given thumbnail
      * @param string $thumbnail
      * @return array
      */
-    public function find($thumbnail);
+    public function find(string $thumbnail): array;
 }

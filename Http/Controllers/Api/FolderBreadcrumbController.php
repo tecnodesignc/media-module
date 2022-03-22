@@ -11,8 +11,8 @@ class FolderBreadcrumbController extends Controller
     /**
      * @var FolderRepository
      */
-    private $folder;
-    private $breadcrumb = [
+    private FolderRepository $folder;
+    private array $breadcrumb = [
         //0 => 'Home',
     ];
 

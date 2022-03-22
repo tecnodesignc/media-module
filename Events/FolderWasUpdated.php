@@ -9,15 +9,15 @@ class FolderWasUpdated
     /**
      * @var File
      */
-    public $folder;
+    public File $folder;
     /**
      * @var array
      */
-    public $data;
+    public array $data;
     /**
      * @var array
      */
-    public $previousFolderData;
+    public array $previousFolderData;
 
     public function __construct(File $folder, array $data, array $previousFolderData)
     {

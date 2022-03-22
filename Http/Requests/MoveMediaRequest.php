@@ -6,19 +6,19 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MoveMediaRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'destinationFolder' => 'required',
         ];
     }
 
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [];
     }

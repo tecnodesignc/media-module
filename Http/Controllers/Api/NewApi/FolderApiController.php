@@ -19,14 +19,15 @@ use Modules\Media\Repositories\FolderRepository;
 
 class FolderApiController extends BaseApiController
 {
-    private $folder;
-    private $breadcrumb = [
+    private FolderRepository $folder;
+    private array $breadcrumb = [
         //0 => 'Home',
     ];
 
 
     public function __construct(FolderRepository $folder)
     {
+        parent::__construct();
         $this->folder = $folder;
     }
 
@@ -35,7 +36,7 @@ class FolderApiController extends BaseApiController
      *
      * @return mixed
      */
-    public function index(Request $request)
+    public function index(Request $request): mixed
     {
         try {
             //Validate permissions
@@ -67,10 +68,11 @@ class FolderApiController extends BaseApiController
     /**
      * GET BREADCRUMB
      *
-     * @param $criteria
+     * @param File $folder
+     * @param Request $request
      * @return mixed
      */
-    public function breadcrumb(File $folder, Request $request)
+    public function breadcrumb(File $folder, Request $request): mixed
     {
         try {
             //Get Parameters from URL.
@@ -119,7 +121,7 @@ class FolderApiController extends BaseApiController
      * @param Request $request
      * @return mixed
      */
-    public function create(Request $request)
+    public function create(Request $request): mixed
     {
         \DB::beginTransaction();
         try {
@@ -154,11 +156,11 @@ class FolderApiController extends BaseApiController
     /**
      * UPDATE ITEM
      *
-     * @param $criteria
+     * @param File $folder
      * @param Request $request
      * @return mixed
      */
-    public function update(File $folder, Request $request)
+    public function update(File $folder, Request $request): mixed
     {
         \DB::beginTransaction(); //DB Transaction
         try {
@@ -193,10 +195,11 @@ class FolderApiController extends BaseApiController
     /**
      * DELETE A ITEM
      *
-     * @param $criteria
+     * @param File $folder
+     * @param Request $request
      * @return mixed
      */
-    public function delete(File $folder, Request $request)
+    public function delete(File $folder, Request $request): mixed
     {
         \DB::beginTransaction();
         try {
@@ -227,7 +230,7 @@ class FolderApiController extends BaseApiController
      *
      * @return mixed
      */
-    public function allNestable(Request $request)
+    public function allNestable(Request $request): mixed
     {
         try {
             //Get Parameters from URL.

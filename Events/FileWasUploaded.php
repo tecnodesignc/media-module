@@ -9,7 +9,7 @@ class FileWasUploaded
     /**
      * @var File
      */
-    public $file;
+    public File $file;
 
     /**
      * @param File $file

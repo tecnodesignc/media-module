@@ -14,7 +14,7 @@ class CreateThumbnails implements ShouldQueue
     /**
      * @var MediaPath
      */
-    private $path;
+    private MediaPath $path;
 
     public function __construct(MediaPath $path)
     {

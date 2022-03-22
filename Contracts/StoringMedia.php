@@ -2,17 +2,19 @@
 
 namespace Modules\Media\Contracts;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface StoringMedia
 {
     /**
      * Return the entity
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      */
-    public function getEntity();
+    public function getEntity(): Model;
 
     /**
      * Return the ALL data sent
      * @return array
      */
-    public function getSubmissionData();
+    public function getSubmissionData(): array;
 }

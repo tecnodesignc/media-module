@@ -10,21 +10,25 @@ class MediaSingleDirective
     /**
      * @var string
      */
-    private $zone;
+    private string $zone;
     /**
-     * @var
+     * @var mixed
      */
-    private $entity;
-    /**
-     * @var string|null
-     */
-    private $view;
+    private mixed $entity;
     /**
      * @var string|null
      */
-    private $name;
+    private ?string $view;
+    /**
+     * @var string|null
+     */
+    private ?string $name;
 
-    public function show($arguments)
+    /**
+     * @param array $arguments
+     * @return mixed
+     */
+    public function show(array $arguments): mixed
     {
         $this->extractArguments($arguments);
 

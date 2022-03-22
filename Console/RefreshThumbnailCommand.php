@@ -15,7 +15,7 @@ class RefreshThumbnailCommand extends Command
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     public function __construct(FileRepository $file)
     {
@@ -26,7 +26,7 @@ class RefreshThumbnailCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
     public function handle()
     {

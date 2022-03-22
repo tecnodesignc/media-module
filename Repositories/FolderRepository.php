@@ -14,16 +14,24 @@ interface FolderRepository extends BaseRepository
      * @param int $folderId
      * @return File|null
      */
-    public function findFolder(int $folderId);
+    public function findFolder(int $folderId): ?File;
 
     /**
      * @param File $folder
      * @return Collection
      */
-    public function allChildrenOf(File $folder);
+    public function allChildrenOf(File $folder): Collection;
 
+    /**
+     * @return NestedFoldersCollection
+     */
     public function allNested() : NestedFoldersCollection;
 
+    /**
+     * @param File $folder
+     * @param File $destination
+     * @return File
+     */
     public function move(File $folder, File $destination) : File;
 
     /**
@@ -32,5 +40,5 @@ interface FolderRepository extends BaseRepository
      * @param int $folderId
      * @return File
      */
-    public function findFolderOrRoot($folderId) : File;
+    public function findFolderOrRoot(int $folderId) : File;
 }

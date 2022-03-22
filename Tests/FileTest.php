@@ -11,7 +11,7 @@ class FileTest extends MediaTestCase
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     public function setUp(): void
     {

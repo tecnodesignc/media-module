@@ -12,11 +12,11 @@ class MaxFolderSizeRule implements Rule
 {
     /**
      * Determine if the validation rule passes.
-     * @param  string $attribute
-     * @param  UploadedFile $value
+     * @param string $attribute
+     * @param UploadedFile $value
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes( $attribute, $value): bool
     {
         $mediaPath = public_path(config('encore.media.config.files-path'));
         $folderSize = $this->getDirSize($mediaPath);
@@ -30,7 +30,7 @@ class MaxFolderSizeRule implements Rule
      * Get the validation error message.
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         $bytes = config('encore.media.config.max-total-size');
         $size = $this->formatBytes($bytes);
@@ -43,7 +43,7 @@ class MaxFolderSizeRule implements Rule
      * @param string $directory
      * @return int
      */
-    public function getDirSize($directory) : int
+    public function getDirSize(string $directory) : int
     {
         $size = 0;
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory,FilesystemIterator::SKIP_DOTS)) as $file) {
@@ -53,7 +53,7 @@ class MaxFolderSizeRule implements Rule
         return $size;
     }
 
-    private function formatBytes($bytes, $precision = 2)
+    private function formatBytes($bytes, $precision = 2): string
     {
         $units = [
             trans('media::media.file-sizes.B'),

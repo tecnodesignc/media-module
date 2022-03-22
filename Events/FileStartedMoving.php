@@ -9,11 +9,11 @@ class FileStartedMoving
     /**
      * @var File
      */
-    public $file;
+    public File $file;
     /**
      * @var array
      */
-    public $previousData;
+    public array $previousData;
 
     public function __construct(File $file, array $previousData)
     {

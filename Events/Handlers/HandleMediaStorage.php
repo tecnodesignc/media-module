@@ -61,7 +61,7 @@ class HandleMediaStorage
      * @param array $attributes
      * @return array
      */
-    private function getOrdersFrom(array $attributes)
+    private function getOrdersFrom(array $attributes): array
     {
         $orderString = Arr::get($attributes, 'orders');
 

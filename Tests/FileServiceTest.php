@@ -10,7 +10,7 @@ final class FileServiceTest extends MediaTestCase
     /**
      * @var FileService
      */
-    private $fileService;
+    private FileService $fileService;
 
     public function setUp(): void
     {

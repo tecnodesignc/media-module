@@ -11,7 +11,7 @@ final class FileIsUpdating extends AbstractEntityHook implements EntityIsChangin
     /**
      * @var File
      */
-    private $file;
+    private File $file;
 
     public function __construct(File $file, array $attributes)
     {
@@ -19,11 +19,4 @@ final class FileIsUpdating extends AbstractEntityHook implements EntityIsChangin
         parent::__construct($attributes);
     }
 
-    /**
-     * @return File
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
 }

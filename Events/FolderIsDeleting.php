@@ -9,7 +9,7 @@ class FolderIsDeleting
     /**
      * @var File
      */
-    public $folder;
+    public File $folder;
 
     public function __construct(File $folder)
     {

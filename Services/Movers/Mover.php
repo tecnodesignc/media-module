@@ -9,11 +9,11 @@ class Mover
     /**
      * @var FileMover
      */
-    private $fileMover;
+    private FileMover $fileMover;
     /**
      * @var FolderMover
      */
-    private $folderMover;
+    private FolderMover $folderMover;
 
     public function __construct(FileMover $fileMover, FolderMover $folderMover)
     {

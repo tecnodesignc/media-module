@@ -11,7 +11,7 @@ final class MoverTest extends MediaTestCase
     /**
      * @var Mover
      */
-    private $mover;
+    private Mover $mover;
 
     public function setUp(): void
     {

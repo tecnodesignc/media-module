@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Facade;
 
 class MediaSingleDirective extends Facade
 {
-    protected static function getFacadeAccessor()
+    /**
+     * @return string
+     */
+    protected static function getFacadeAccessor(): string
     {
         return 'media.single.directive';
     }

@@ -13,15 +13,15 @@ class BatchDestroyController extends Controller
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
 
     public function __construct(FileRepository $file, FolderRepository $folder, Imagy $imagy)
     {

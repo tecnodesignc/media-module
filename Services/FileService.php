@@ -16,11 +16,11 @@ class FileService
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var Factory
      */
-    private $filesystem;
+    private Factory $filesystem;
 
     public function __construct(FileRepository $file, Factory $filesystem)
     {
@@ -33,7 +33,7 @@ class FileService
      * @param int $parentId
      * @return mixed
      */
-    public function store(UploadedFile $file, int $parentId = 0)
+    public function store(UploadedFile $file, int $parentId = 0): mixed
     {
         $savedFile = $this->file->createFromFile($file, $parentId);
 
@@ -51,7 +51,7 @@ class FileService
 
     /**
      * Create the necessary thumbnails for the given file
-     * @param $savedFile
+     * @param File $savedFile
      */
     private function createThumbnails(File $savedFile)
     {
@@ -62,7 +62,7 @@ class FileService
      * @param string $path
      * @return string
      */
-    private function getDestinationPath($path)
+    private function getDestinationPath(string $path): string
     {
         if ($this->getConfiguredFilesystem() === 'local') {
             return basename(public_path()) . $path;
@@ -74,7 +74,7 @@ class FileService
     /**
      * @return string
      */
-    private function getConfiguredFilesystem()
+    private function getConfiguredFilesystem(): string
     {
         return config('encore.media.config.filesystem');
     }

@@ -8,12 +8,12 @@ class FileWasUnlinked
      * The imageable id
      * @var int
      */
-    public $imageableId;
+    public int $imageableId;
 
     /**
      * @param int $imageableId
      */
-    public function __construct($imageableId)
+    public function __construct(int $imageableId)
     {
         $this->imageableId = $imageableId;
     }

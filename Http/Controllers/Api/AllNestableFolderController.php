@@ -10,7 +10,7 @@ class AllNestableFolderController extends Controller
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
 
     public function __construct(FolderRepository $folder)
     {

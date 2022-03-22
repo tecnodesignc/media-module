@@ -10,9 +10,17 @@ class CreateFolderOnDisk
     /**
      * @var Factory
      */
-    private $filesystem;
+    private Factory $filesystem;
 
     public function __construct(Factory $filesystem)
+    {
+        $this->filesystem = $filesystem;
+    }
+
+    /**
+     * @param Factory $filesystem
+     */
+    public function setFilesystem(Factory $filesystem): void
     {
         $this->filesystem = $filesystem;
     }
@@ -34,7 +42,7 @@ class CreateFolderOnDisk
     /**
      * @return string
      */
-    private function getConfiguredFilesystem()
+    private function getConfiguredFilesystem(): string
     {
         return config('encore.media.config.filesystem');
     }

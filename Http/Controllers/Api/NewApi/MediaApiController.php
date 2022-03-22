@@ -26,18 +26,19 @@ use function Aws\filter;
 
 class MediaApiController extends BaseApiController
 {
-    private $file;
+    private FileRepository $file;
     /**
      * @var FileService
      */
-    private $fileService;
+    private FileService $fileService;
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
 
     public function __construct(FileRepository $file, FileService $fileService, Imagy $imagy)
     {
+        parent::__construct();
         $this->file = $file;
         $this->fileService = $fileService;
         $this->imagy = $imagy;
@@ -49,7 +50,7 @@ class MediaApiController extends BaseApiController
      *
      * @return mixed
      */
-    public function index(Request $request)
+    public function index(Request $request): mixed
     {
         try {
 
@@ -80,9 +81,10 @@ class MediaApiController extends BaseApiController
      * GET A ITEM
      *
      * @param $criteria
+     * @param Request $request
      * @return mixed
      */
-    public function show($criteria, Request $request)
+    public function show($criteria, Request $request): mixed
     {
         try {
 
@@ -114,10 +116,10 @@ class MediaApiController extends BaseApiController
     /**
      * CREATE A ITEM
      *
-     * @param Request $request
+     * @param UploadMediaRequest $request
      * @return mixed
      */
-    public function create(UploadMediaRequest $request)
+    public function create(UploadMediaRequest $request): mixed
     {
         \DB::beginTransaction();
         try {
@@ -175,7 +177,7 @@ class MediaApiController extends BaseApiController
      * @param Request $request
      * @return mixed
      */
-    public function update($criteria, Request $request)
+    public function update($criteria, Request $request): mixed
     {
         \DB::beginTransaction(); //DB Transaction
         try {
@@ -213,9 +215,10 @@ class MediaApiController extends BaseApiController
      * DELETE A ITEM
      *
      * @param $criteria
+     * @param Request $request
      * @return mixed
      */
-    public function delete($criteria, Request $request)
+    public function delete($criteria, Request $request): mixed
     {
         \DB::beginTransaction();
         try {

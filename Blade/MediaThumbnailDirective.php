@@ -10,23 +10,27 @@ class MediaThumbnailDirective
     /**
      * @var string
      */
-    private $path;
+    private string $path;
     /**
      * @var string
      */
-    private $thumbnail;
+    private string $thumbnail;
 
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
 
     public function __construct()
     {
         $this->imagy = app(Imagy::class);
     }
 
-    public function show($arguments)
+    /**
+     * @param array $arguments
+     * @return string
+     */
+    public function show(array $arguments): string
     {
         $this->extractArguments($arguments);
 

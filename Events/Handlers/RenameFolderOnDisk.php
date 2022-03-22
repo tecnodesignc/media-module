@@ -11,11 +11,11 @@ class RenameFolderOnDisk
     /**
      * @var Factory
      */
-    private $filesystem;
+    private Factory $filesystem;
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     public function __construct(Factory $filesystem, FileRepository $file)
     {
@@ -58,7 +58,7 @@ class RenameFolderOnDisk
     /**
      * @return string
      */
-    private function getConfiguredFilesystem()
+    private function getConfiguredFilesystem(): string
     {
         return config('encore.media.config.filesystem');
     }

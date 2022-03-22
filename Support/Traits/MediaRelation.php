@@ -11,7 +11,7 @@ trait MediaRelation
      * Make the Many To Many Morph To Relation
      * @return object
      */
-    public function files()
+    public function files(): object
     {
         return $this->morphToMany(File::class, 'imageable', 'media__imageables')->withPivot('zone', 'id')->withTimestamps()->orderBy('order');
     }
@@ -21,7 +21,7 @@ trait MediaRelation
      * @param string $zone
      * @return object
      */
-    public function filesByZone($zone)
+    public function filesByZone(string $zone): object
     {
         return $this->morphToMany(File::class, 'imageable', 'media__imageables')
             ->withPivot('zone', 'id')
@@ -35,7 +35,7 @@ trait MediaRelation
      *
      * @return array
      */
-    public function transformerFiles()
+    public function transformerFiles(): array
     {
         $imagy = app(Imagy::class);
         $files = $this->files;

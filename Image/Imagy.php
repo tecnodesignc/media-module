@@ -5,6 +5,7 @@ namespace Modules\Media\Image;
 use GuzzleHttp\Psr7\Stream;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Support\Arr;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Modules\Media\Entities\File;
 use Modules\Media\ValueObjects\MediaPath;
@@ -12,27 +13,27 @@ use Modules\Media\ValueObjects\MediaPath;
 class Imagy
 {
     /**
-     * @var \Intervention\Image\Image
+     * @var ImageManager
      */
-    private $image;
+    private ImageManager $image;
     /**
      * @var ImageFactoryInterface
      */
-    private $imageFactory;
+    private ImageFactoryInterface $imageFactory;
     /**
      * @var ThumbnailManager
      */
-    private $manager;
+    private ThumbnailManager $manager;
 
     /**
      * All the different images types where thumbnails should be created
      * @var array
      */
-    private $imageExtensions = ['jpg', 'png', 'jpeg', 'gif'];
+    private array $imageExtensions = ['jpg', 'png', 'jpeg', 'gif'];
     /**
      * @var Factory
      */
-    private $filesystem;
+    private Factory $filesystem;
 
     /**
      * @param ImageFactoryInterface $imageFactory
@@ -48,15 +49,15 @@ class Imagy
 
     /**
      * Get an image in the given thumbnail options
-     * @param  string $path
-     * @param  string $thumbnail
-     * @param  bool   $forceCreate
+     * @param string $path
+     * @param string $thumbnail
+     * @param bool $forceCreate
      * @return string
      */
-    public function get($path, $thumbnail, $forceCreate = false)
+    public function get(string $path, string $thumbnail, bool $forceCreate = false): string
     {
         if (!$this->isImage($path)) {
-            return;
+            return '';
         }
 
         $filename = $this->getFilenameFor($path, $thumbnail);
@@ -129,7 +130,7 @@ class Imagy
      * @param $thumbnail
      * @return mixed|string
      */
-    private function newFilename($path, $thumbnail)
+    private function newFilename($path, $thumbnail): string
     {
         $filename = pathinfo($path, PATHINFO_FILENAME);
 
@@ -138,11 +139,11 @@ class Imagy
 
     /**
      * Return the already created file if it exists and force create is false
-     * @param  string $filename
-     * @param  bool   $forceCreate
+     * @param string $filename
+     * @param bool $forceCreate
      * @return bool
      */
-    private function returnCreatedFile($filename, $forceCreate)
+    private function returnCreatedFile(string $filename, bool $forceCreate): bool
     {
         return $this->fileExists($filename) && $forceCreate === false;
     }
@@ -151,14 +152,15 @@ class Imagy
      * Write the given image
      * @param string $filename
      * @param Stream $image
+     * @return void
      */
-    private function writeImage($filename, Stream $image)
+    private function writeImage(string $filename, Stream $image)
     {
         $filename = $this->getDestinationPath($filename);
         $resource = $image->detach();
         $config = [
             'visibility' => 'public',
-            'mimetype' => \GuzzleHttp\Psr7\mimetype_from_filename($filename),
+            'mimetype' => \GuzzleHttp\Psr7\MimeType::fromFilename($filename),
         ];
         if ($this->fileExists($filename)) {
             return $this->filesystem->disk($this->getConfiguredFilesystem())->updateStream($filename, $resource, $config);
@@ -169,10 +171,10 @@ class Imagy
     /**
      * Make a new image
      * @param MediaPath      $path
-     * @param string      $filename
+     * @param string $filename
      * @param string null $thumbnail
      */
-    private function makeNew(MediaPath $path, $filename, $thumbnail)
+    private function makeNew(MediaPath $path, string $filename, $thumbnail)
     {
         $image = $this->image->make($path->getUrl());
 
@@ -186,10 +188,10 @@ class Imagy
 
     /**
      * Check if the given path is en image
-     * @param  string $path
+     * @param string $path
      * @return bool
      */
-    public function isImage($path)
+    public function isImage(string $path): bool
     {
         return in_array(pathinfo($path, PATHINFO_EXTENSION), $this->imageExtensions);
     }
@@ -197,10 +199,10 @@ class Imagy
     /**
      * Delete all files on disk for the given file in storage
      * This means the original and the thumbnails
-     * @param $file
+     * @param File $file
      * @return bool
      */
-    public function deleteAllFor(File $file)
+    public function deleteAllFor(File $file): bool
     {
         if (!$this->isImage($file->path)) {
             return $this->filesystem->disk($this->getConfiguredFilesystem())->delete($this->getDestinationPath($file->path->getRelativeUrl()));
@@ -228,7 +230,7 @@ class Imagy
      * @param $filename
      * @return bool
      */
-    private function fileExists($filename)
+    private function fileExists($filename): bool
     {
         return $this->filesystem->disk($this->getConfiguredFilesystem())->exists($filename);
     }
@@ -237,7 +239,7 @@ class Imagy
      * @param string $path
      * @return string
      */
-    private function getDestinationPath($path)
+    private function getDestinationPath(string $path): string
     {
         if ($this->getConfiguredFilesystem() === 'local') {
             return basename(public_path()) . $path;
@@ -253,6 +255,7 @@ class Imagy
      */
     private function getFilenameFor(MediaPath $path, $thumbnail)
     {
+
         if ($thumbnail instanceof  Thumbnail) {
             $thumbnail = $thumbnail->name();
         }

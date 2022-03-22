@@ -15,19 +15,19 @@ class MediaController extends AdminBaseController
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var Repository
      */
-    private $config;
+    private Repository $config;
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
     /**
      * @var ThumbnailManager
      */
-    private $thumbnailsManager;
+    private ThumbnailManager $thumbnailsManager;
 
     public function __construct(FileRepository $file, Repository $config, Imagy $imagy, ThumbnailManager $thumbnailsManager)
     {
@@ -50,7 +50,7 @@ class MediaController extends AdminBaseController
      *
      * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return view('media.create');
     }
@@ -61,7 +61,7 @@ class MediaController extends AdminBaseController
      * @param  File     $file
      * @return Response
      */
-    public function edit(File $file)
+    public function edit(File $file): Response
     {
         $thumbnails = $this->thumbnailsManager->all();
 
@@ -75,7 +75,7 @@ class MediaController extends AdminBaseController
      * @param  UpdateMediaRequest $request
      * @return Response
      */
-    public function update(File $file, UpdateMediaRequest $request)
+    public function update(File $file, UpdateMediaRequest $request): Response
     {
         $this->file->update($file, $request->all());
 
@@ -90,7 +90,7 @@ class MediaController extends AdminBaseController
      * @internal param int $id
      * @return Response
      */
-    public function destroy(File $file)
+    public function destroy(File $file): Response
     {
         $this->imagy->deleteAllFor($file);
         $this->file->destroy($file);

@@ -2,11 +2,12 @@
 
 namespace Modules\Media\Image\Intervention\Manipulations;
 
+use Intervention\Image\Image;
 use Modules\Media\Image\ImageHandlerInterface;
 
 class Crop implements ImageHandlerInterface
 {
-    private $defaults = [
+    private array $defaults = [
         'width' => '100',
         'height' => '100',
         'x' => null,
@@ -15,11 +16,11 @@ class Crop implements ImageHandlerInterface
 
     /**
      * Handle the image manipulation request
-     * @param  \Intervention\Image\Image $image
-     * @param  array                     $options
+     * @param Image $image
+     * @param array $options
      * @return mixed
      */
-    public function handle($image, $options)
+    public function handle(Image $image, array $options): mixed
     {
         $options = array_merge($this->defaults, $options);
 

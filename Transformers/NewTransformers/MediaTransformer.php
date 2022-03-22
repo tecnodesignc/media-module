@@ -14,11 +14,11 @@ class MediaTransformer extends JsonResource
     /**
      * @var Imagy
      */
-    private $imagy;
+    private Imagy $imagy;
     /**
      * @var ThumbnailManager
      */
-    private $thumbnailManager;
+    private ThumbnailManager $thumbnailManager;
 
     public function __construct($resource)
     {
@@ -28,7 +28,7 @@ class MediaTransformer extends JsonResource
         $this->thumbnailManager = app(ThumbnailManager::class);
     }
 
-    public function toArray($request)
+    public function toArray($request): array
     {
         $data = [
             'id' => $this->id,
@@ -74,7 +74,7 @@ class MediaTransformer extends JsonResource
         return $data;
     }
 
-    private function getPath()
+    private function getPath(): string
     {
         if ($this->is_folder) {
             return $this->path->getRelativeUrl();

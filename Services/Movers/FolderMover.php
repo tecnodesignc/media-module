@@ -14,16 +14,18 @@ final class FolderMover implements MoverInterface
     /**
      * @var Factory
      */
-    private $filesystem;
+    private Factory $filesystem;
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
+
     private $fromPath;
+
     private $toPath;
 
     public function __construct(Factory $filesystem, FileRepository $file, FolderRepository $folder)

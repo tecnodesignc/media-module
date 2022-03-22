@@ -13,15 +13,15 @@ class MoveMediaController extends Controller
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var FolderRepository
      */
-    private $folder;
+    private FolderRepository $folder;
     /**
      * @var Mover
      */
-    private $mover;
+    private Mover $mover;
 
     public function __construct(
         FileRepository $file,

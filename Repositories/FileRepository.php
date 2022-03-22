@@ -16,7 +16,7 @@ interface FileRepository extends BaseRepository
      * @param int $parentId
      * @return mixed
      */
-    public function createFromFile(UploadedFile $file, int $parentId = 0);
+    public function createFromFile(UploadedFile $file, int $parentId = 0): mixed;
 
     /**
      * Find a file for the entity by zone
@@ -24,7 +24,7 @@ interface FileRepository extends BaseRepository
      * @param object $entity
      * @return object
      */
-    public function findFileByZoneForEntity($zone, $entity);
+    public function findFileByZoneForEntity(string $zone, object $entity): object;
 
     /**
      * Find multiple files for the given zone and entity
@@ -32,13 +32,13 @@ interface FileRepository extends BaseRepository
      * @param object $entity
      * @return object
      */
-    public function findMultipleFilesByZoneForEntity($zone, $entity);
+    public function findMultipleFilesByZoneForEntity(string $zone, object $entity): object;
 
     /**
      * @param Request $request
      * @return mixed
      */
-    public function serverPaginationFilteringFor(Request $request);
+    public function serverPaginationFilteringFor(Request $request): mixed;
 
     /**
      * @param int $folderId

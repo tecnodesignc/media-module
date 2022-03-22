@@ -12,7 +12,7 @@ class BaseUrlResolver
     /**
      * @var array
      */
-    private $resolvers = [];
+    private array $resolvers = [];
 
     public function __construct()
     {
@@ -28,7 +28,7 @@ class BaseUrlResolver
      * @param string $path
      * @return string
      */
-    public function resolve($path)
+    public function resolve(string $path): string
     {
         $factory = app(Factory::class);
         $adapter = $factory->disk($this->getConfiguredFilesystem())->getDriver()->getAdapter();
@@ -39,7 +39,7 @@ class BaseUrlResolver
     /**
      * @return string
      */
-    private function getConfiguredFilesystem()
+    private function getConfiguredFilesystem(): string
     {
         return config('encore.media.config.filesystem');
     }

@@ -14,7 +14,7 @@ class RebuildThumbnails implements ShouldQueue
     /**
      * @var Collection
      */
-    private $paths;
+    private Collection $paths;
 
     public function __construct(Collection $paths)
     {

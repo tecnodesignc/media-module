@@ -9,18 +9,18 @@ class FileWasLinked
     /**
      * @var File
      */
-    public $file;
+    public File $file;
     /**
      * The entity that was linked to a file
      * @var object
      */
-    public $entity;
+    public object $entity;
 
     /**
      * @param File $file
      * @param object $entity
      */
-    public function __construct(File $file, $entity)
+    public function __construct(File $file, object $entity)
     {
         $this->file = $file;
         $this->entity = $entity;

@@ -11,7 +11,7 @@ class MediaController extends Controller
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     public function __construct(FileRepository $file)
     {

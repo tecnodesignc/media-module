@@ -11,15 +11,15 @@ class PartialAssetComposer
     /**
      * @var AssetManager
      */
-    private $assetManager;
+    private AssetManager $assetManager;
     /**
      * @var AssetPipeline
      */
-    private $assetPipeline;
+    private AssetPipeline $assetPipeline;
     /**
      * @var AssetTypeFactory
      */
-    private $assetFactory;
+    private AssetTypeFactory $assetFactory;
 
     public function __construct()
     {

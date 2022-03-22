@@ -13,11 +13,11 @@ final class FileMoverTest extends MediaTestCase
     /**
      * @var FileMover
      */
-    private $mover;
+    private FileMover $mover;
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
 
     protected function setUp(): void
     {

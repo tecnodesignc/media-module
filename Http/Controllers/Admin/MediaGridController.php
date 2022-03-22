@@ -11,11 +11,11 @@ class MediaGridController extends AdminBaseController
     /**
      * @var FileRepository
      */
-    private $file;
+    private FileRepository $file;
     /**
      * @var ThumbnailManager
      */
-    private $thumbnailsManager;
+    private ThumbnailManager $thumbnailsManager;
 
     public function __construct(FileRepository $file, ThumbnailManager $thumbnailsManager)
     {
@@ -29,7 +29,7 @@ class MediaGridController extends AdminBaseController
      * A grid view for the upload button
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $files = $this->file->allForGrid();
         $thumbnails = $this->thumbnailsManager->all();
@@ -41,7 +41,7 @@ class MediaGridController extends AdminBaseController
      * A grid view of uploaded files used for the wysiwyg editor
      * @return \Illuminate\View\View
      */
-    public function ckIndex()
+    public function ckIndex(): \Illuminate\View\View
     {
         $files = $this->file->allForGrid();
         $thumbnails = $this->thumbnailsManager->all();

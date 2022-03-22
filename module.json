@@ -1,9 +1,11 @@
 {
+    "title": "Media",
     "name": "Media",
     "alias": "media",
-    "description": "A media library, used throughout the CMS.",
+    "description": "A media library, used throughout the Encore CMS.",
     "keywords": [],
-    "version": "1.0.1",
+    "author": "Marcos Rativa",
+    "version": "2.0.0",
     "active": 1,
     "priority": 1,
     "providers": [
@@ -21,5 +23,6 @@
         "MediaThumbnailDirective": "Modules\\Media\\Blade\\Facades\\MediaThumbnailDirective"
     },
     "files": [
-    ]
+    ],
+    "minimumCoreVersion": "2.0"
 }

@@ -2,11 +2,12 @@
 
 namespace Modules\Media\Image\Intervention\Manipulations;
 
+use Intervention\Image\Image;
 use Modules\Media\Image\ImageHandlerInterface;
 
 class Watermark implements ImageHandlerInterface
 {
-    private $defaults = [
+    private array $defaults = [
         'source' => 'public/assets/watermark.png',
         'position' => 'bottom-right',
         'x' => null,
@@ -15,11 +16,11 @@ class Watermark implements ImageHandlerInterface
 
     /**
      * Handle the image manipulation request
-     * @param  \Intervention\Image\Image $image
-     * @param  array                     $options
+     * @param Image $image
+     * @param array $options
      * @return \Intervention\Image\Image
      */
-    public function handle($image, $options)
+    public function handle(Image $image, array $options): Image
     {
         $options = array_merge($this->defaults, $options);
 

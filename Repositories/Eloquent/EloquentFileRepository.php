@@ -2,8 +2,11 @@
 
 namespace Modules\Media\Repositories\Eloquent;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
@@ -24,9 +27,9 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
      * Update a resource
      * @param File $file
      * @param $data
-     * @return mixed
+     * @return File
      */
-    public function update($file, $data)
+    public function update($file, $data): File
     {
         event($event = new FileIsUpdating($file, $data));
         $file->update($event->getAttributes());
@@ -44,7 +47,7 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
      * @param int $parentId
      * @return mixed
      */
-    public function createFromFile(UploadedFile $file, int $parentId = 0)
+    public function createFromFile(UploadedFile $file, int $parentId = 0): mixed
     {
         $fileName = FileHelper::slug($file->getClientOriginalName());
 
@@ -72,7 +75,12 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         return $file;
     }
 
-    private function getPathFor(string $filename, int $folderId)
+    /**
+     * @param string $filename
+     * @param int $folderId
+     * @return string
+     */
+    private function getPathFor(string $filename, int $folderId): string
     {
         if ($folderId !== 0) {
             $parent = app(FolderRepository::class)->findFolder($folderId);
@@ -84,18 +92,22 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         return config('encore.media.config.files-path') . $filename;
     }
 
-    public function destroy($file)
+    /**
+     * @param $file
+     * @return bool
+     */
+    public function destroy($file): bool
     {
-        $file->delete();
+      return  $file->delete();
     }
 
     /**
      * Find a file for the entity by zone
-     * @param $zone
+     * @param string $zone
      * @param object $entity
      * @return object
      */
-    public function findFileByZoneForEntity($zone, $entity)
+    public function findFileByZoneForEntity(string $zone, object $entity): object
     {
         foreach ($entity->files as $file) {
             if ($file->pivot->zone == $zone) {
@@ -108,11 +120,11 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
 
     /**
      * Find multiple files for the given zone and entity
-     * @param zone $zone
+     * @param string $zone
      * @param object $entity
      * @return object
      */
-    public function findMultipleFilesByZoneForEntity($zone, $entity)
+    public function findMultipleFilesByZoneForEntity(string $zone, object $entity): object
     {
         $files = [];
         foreach ($entity->files as $file) {
@@ -128,7 +140,7 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
      * @param $fileName
      * @return string
      */
-    private function getNewUniqueFilename($fileName)
+    private function getNewUniqueFilename($fileName): string
     {
         $fileNameOnly = pathinfo($fileName, PATHINFO_FILENAME);
         $extension = pathinfo($fileName, PATHINFO_EXTENSION);
@@ -154,7 +166,7 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
      * @param Request $request
      * @return mixed
      */
-    public function serverPaginationFilteringFor(Request $request)
+    public function serverPaginationFilteringFor(Request $request): mixed
     {
         $media = $this->allWithBuilder();
 
@@ -186,18 +198,30 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         return $this->model->where('folder_id', $folderId)->get();
     }
 
-    public function findForVirtualPath(string $path)
+    /**
+     * @param string $path
+     * @return mixed
+     */
+    public function findForVirtualPath(string $path): mixed
     {
         $prefix = config('encore.media.config.files-path');
 
         return $this->model->where('path', $prefix . $path)->first();
     }
 
+    /**
+     * @return Collection
+     */
     public function allForGrid(): Collection
     {
         return $this->model->where('is_folder', 0)->get();
     }
 
+    /**
+     * @param File $file
+     * @param File $destination
+     * @return File
+     */
     public function move(File $file, File $destination): File
     {
         $previousData = [
@@ -215,8 +239,12 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         return $file;
     }
 
-
-    public function getItemsBy($params = false)
+    /**
+     * Get resources by an array of attributes
+     * @param object $params
+     * @return LengthAwarePaginator|Collection
+     */
+    public function getItemsBy($params = false): Collection|LengthAwarePaginator
     {
         /*== initialize query ==*/
         $query = $this->model->query();
@@ -312,8 +340,14 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         }
     }
 
+    /**
+     * Find a resource by id or slug
+     * @param string $criteria
+     * @param object $params
+     * @return Model|Collection|Builder|array|null
+     */
 
-    public function getItem($criteria, $params = false)
+    public function getItem(string $criteria, $params = false): Model|Collection|Builder|array|null
     {
         //Initialize query
         $query = $this->model->query();
@@ -351,14 +385,23 @@ class EloquentFileRepository extends EloquentBaseRepository implements FileRepos
         /*== REQUEST ==*/
         return $query->where($field ?? 'id', $criteria)->first();
     }
+    /**
+     * Create a resource
+     * @param  $data
+     * @return Model|Collection|Builder|array|null
+     */
 
-
-    public function create($data)
+    public function create($data): Model|Collection|Builder|array|null
     {
         return $this->model->create($data);
     }
 
 
+    /**
+     * @param $query
+     * @param $params
+     * @return void
+     */
     function validateIndexAllPermission(&$query, $params)
     {
         if (!isset($params->permissions['media.medias.index-all']) || !$params->permissions['media.medias.index-all']) {
