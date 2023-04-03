@@ -1,7 +1,7 @@
 {
     "name": "tecnodesignc/media-module",
     "type": "encore-module",
-    "description": "Media module for EncoreCMS. Handles the media library.",
+    "description": "Media module for EncoreCMS 2.1. Handles the media library.",
     "keywords": [
         "EncoreCMS",
         "media",
@@ -14,7 +14,7 @@
     "authors": [
         {
             "name": "Marcos Rativa",
-            "email": "marcos21.009@gmail.com",
+            "email": "info@tecnodesign.com.co",
             "role": "Developer"
         }
     ],
@@ -27,16 +27,16 @@
         "php": ">=8.0",
         "composer/installers": "^2.1",
         "intervention/image": "^2.7",
-        "tecnodesignc/tag-module": "^2.0",
+        "tecnodesignc/tag-module": "^2.1",
         "guzzlehttp/psr7": "^2.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "orchestra/testbench": "3.6.*",
+        "orchestra/testbench": "3.8.*",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "mockery/mockery": "^0.9.5",
-        "friendsofphp/php-cs-fixer": "^2.12",
-        "doctrine/dbal": "^2.5"
+        "mockery/mockery": "^1.4.4",
+        "friendsofphp/php-cs-fixer": "^3.15",
+        "doctrine/dbal": "^3.3"
     },
     "autoload": {
         "psr-4": {
@@ -46,7 +46,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     },
     "minimum-stability": "dev",

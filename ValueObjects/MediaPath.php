@@ -26,7 +26,6 @@ class MediaPath
     public function getUrl()
     {
         $path = ltrim($this->path, '/');
-
         return Storage::disk(config('encore.media.config.filesystem'))->url($path);
     }
 

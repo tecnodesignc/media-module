@@ -83,10 +83,10 @@ class Imagy
      */
     public function getThumbnail($originalImage, $thumbnail)
     {
+
         if ($originalImage instanceof File) {
             $originalImage = $originalImage->path;
         }
-
         if (!$this->isImage($originalImage)) {
             if ($originalImage instanceof MediaPath) {
                 return $originalImage->getUrl();
@@ -263,10 +263,9 @@ class Imagy
         $filename = substr(strrchr($filenameWithoutPrefix, '/'), 1);
         $folders = str_replace($filename, '', $filenameWithoutPrefix);
 
-        if ($filename === false) {
+        if (empty($filename)) {
             return config('encore.media.config.files-path') . $this->newFilename($path, $thumbnail);
         }
-
         return config('encore.media.config.files-path') . $folders . $this->newFilename($path, $thumbnail);
     }
 
