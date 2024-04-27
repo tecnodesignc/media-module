@@ -69,7 +69,7 @@ return [
 
 
   'imageSize' => ['width' => 1024, 'height' => 768, 'quality' => 90],
- 
+
   'watermark' => [
     'activated' => false,
     'url' => 'modules/media/img/watermark/watermark.png',
