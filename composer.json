@@ -27,7 +27,7 @@
         "php": "^8.2",
         "composer/installers": "^2.1",
         "intervention/image": "^2.7",
-        "tecnodesignc/tag-module": "^2.1",
+        "tecnodesignc/tag-module": "^3.0",
         "guzzlehttp/psr7": "^2.2"
     },
     "require-dev": {
