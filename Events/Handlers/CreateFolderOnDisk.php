@@ -27,9 +27,7 @@ class CreateFolderOnDisk
 
     public function handle(FolderWasCreated $event)
     {
-        if ($this->getConfiguredFilesystem() !== 's3') {
-            $this->filesystem->disk($this->getConfiguredFilesystem())->makeDirectory($this->getDestinationPath($event->folder->path->getRelativeUrl()));
-        }
+        $this->filesystem->disk($this->getConfiguredFilesystem())->makeDirectory($this->getDestinationPath($event->folder->path->getRelativeUrl()));
     }
 
     private function getDestinationPath($path)

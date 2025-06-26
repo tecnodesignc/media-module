@@ -77,8 +77,13 @@ class Imagy
 
     /**
      * Return the thumbnail path
+<<<<<<< HEAD
      * @param string|File $originalImage
      * @param string $thumbnail
+=======
+     * @param  string|File $originalImage
+     * @param  string $thumbnail
+>>>>>>> origin/master
      * @return string
      */
     public function getThumbnail($originalImage, $thumbnail)
@@ -162,6 +167,7 @@ class Imagy
             'visibility' => 'public',
             'mimetype' => \GuzzleHttp\Psr7\MimeType::fromFilename($filename),
         ];
+<<<<<<< HEAD
         if ($this->getConfiguredFilesystem() === "s3") {
             if ($this->fileExists($filename)) {
                 return $this->filesystem->disk($this->getConfiguredFilesystem())->writeStream($filename, $resource);
@@ -175,11 +181,21 @@ class Imagy
 
         }
 
+=======
+        if ($this->fileExists($filename)) {
+            return $this->filesystem->disk($this->getConfiguredFilesystem())->updateStream($filename, $resource, $config);
+        }
+        $this->filesystem->disk($this->getConfiguredFilesystem())->writeStream($filename, $resource, $config);
+>>>>>>> origin/master
     }
 
     /**
      * Make a new image
+<<<<<<< HEAD
      * @param MediaPath $path
+=======
+     * @param MediaPath      $path
+>>>>>>> origin/master
      * @param string $filename
      * @param string null $thumbnail
      */
@@ -265,7 +281,11 @@ class Imagy
     private function getFilenameFor(MediaPath $path, $thumbnail)
     {
 
+<<<<<<< HEAD
         if ($thumbnail instanceof Thumbnail) {
+=======
+        if ($thumbnail instanceof  Thumbnail) {
+>>>>>>> origin/master
             $thumbnail = $thumbnail->name();
         }
         $filenameWithoutPrefix = $this->removeConfigPrefix($path->getRelativeUrl());
@@ -282,7 +302,11 @@ class Imagy
      * @param string $path
      * @return string
      */
+<<<<<<< HEAD
     private function removeConfigPrefix(string $path): string
+=======
+    private function removeConfigPrefix(string $path) : string
+>>>>>>> origin/master
     {
         $configAssetPath = config('encore.media.config.files-path');
 

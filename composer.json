@@ -28,8 +28,12 @@
         "composer/installers": "^2.1",
         "intervention/image": "^2.7",
         "tecnodesignc/tag-module": "^3.0",
+<<<<<<< HEAD
         "guzzlehttp/psr7": "^2.2",
         "pion/laravel-chunk-upload": "^1.5"
+=======
+        "guzzlehttp/psr7": "^2.2"
+>>>>>>> origin/master
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",

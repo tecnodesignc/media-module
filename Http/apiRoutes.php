@@ -34,6 +34,7 @@ $router->group(['middleware' => 'api.token'], function (Router $router) {
         'as' => 'api.media.store',
         'middleware' => 'token-can:media.medias.create',
     ]);
+<<<<<<< HEAD
 
     $router->post('largeFile', [
         'uses' => 'MediaController@largeFileUpload',
@@ -41,6 +42,8 @@ $router->group(['middleware' => 'api.token'], function (Router $router) {
         'middleware' => 'token-can:media.medias.create',
     ]);
 
+=======
+>>>>>>> origin/master
     $router->post('file-dropzone', [
         'uses' => 'MediaController@storeDropzone',
         'as' => 'api.media.store-dropzone',

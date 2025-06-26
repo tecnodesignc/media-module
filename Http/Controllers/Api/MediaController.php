@@ -2,6 +2,7 @@
 
 namespace Modules\Media\Http\Controllers\Api;
 
+<<<<<<< HEAD
 use Illuminate\Http\Request;
 use Modules\Media\Image\Imagy;
 use Modules\Media\Entities\File;
@@ -24,6 +25,26 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Modules\Media\Http\Requests\UploadDropzoneMediaRequest;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Pion\Laravel\ChunkUpload\Exceptions\UploadMissingFileException;
+=======
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Modules\Media\Entities\File;
+use Modules\Media\Events\FileWasLinked;
+use Modules\Media\Events\FileWasUnlinked;
+use Modules\Media\Events\FileWasUploaded;
+use Modules\Media\Helpers\FileHelper;
+use Modules\Media\Http\Requests\UploadDropzoneMediaRequest;
+use Modules\Media\Http\Requests\UploadMediaRequest;
+use Modules\Media\Image\Imagy;
+use Modules\Media\Repositories\FileRepository;
+use Modules\Media\Services\FileService;
+use Modules\Media\Transformers\MediaTransformer;
+use Yajra\DataTables\Facades\DataTables;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+>>>>>>> origin/master
 
 class MediaController extends Controller
 {
@@ -160,6 +181,7 @@ class MediaController extends Controller
         return response()->json($savedFile->toArray());
     }
 
+<<<<<<< HEAD
     public function largeFileUpload(UploadLargeMediaRequest $request)
     {
         $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
@@ -185,6 +207,8 @@ class MediaController extends Controller
         throw new UploadMissingFileException();
     }
 
+=======
+>>>>>>> origin/master
     public function storeDropzone(UploadDropzoneMediaRequest $request) : JsonResponse
     {
         $savedFile = $this->fileService->store($request->file('file'));
