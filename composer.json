@@ -1,0 +1,55 @@
+{
+    "name": "tecnodesignc/media-module",
+    "type": "encore-module",
+    "description": "Media module for EncoreCMS 3.0. Handles the media library.",
+    "keywords": [
+        "EncoreCMS",
+        "media",
+        "files",
+        "library",
+        "thumbnails",
+        "filters"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcos Rativa",
+            "email": "info@tecnodesign.com.co",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@tecnodesign.com.co",
+        "issues": "https://github.com/tecnodesignc/encorecms/issues",
+        "source": "https://github.com/tecnodesignc/media-module"
+    },
+    "require": {
+        "php": "^8.2",
+        "composer/installers": "^2.1",
+        "intervention/image": "^2.7",
+        "tecnodesignc/tag-module": "^3.0",
+        "guzzlehttp/psr7": "^2.2",
+        "pion/laravel-chunk-upload": "^1.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "3.8.*",
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "mockery/mockery": "^1.4.4",
+        "friendsofphp/php-cs-fixer": "^3.15",
+        "doctrine/dbal": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Media\\": ".",
+            "Modules\\": "modules/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

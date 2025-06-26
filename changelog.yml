@@ -1,0 +1,26 @@
+url: https://github.com/tecnodesignc/media-module
+versions:
+  "3.0.0":
+    changed:
+      - Laravel 10 compatibility
+      - Delete New Api Controller
+      - Routes Frontend and Controllers
+  "2.0.1":
+    changed:
+      - Name of Thumbnail images create and list
+    "2.0.0":
+      changed:
+        - Laravel 9 compatibility
+    "1.0.1":
+      added:
+        - Assign Permission for media.batchs
+      changed:
+        - Filesystem change for publicmedia
+        - Api routes, Api Controller
+        - Eloquent File repository
+        - MediaTransformer
+      remove:
+        - Midleware autcan of file Api routes
+    "1.0.0":
+      added:
+        - Intial Version Module
